@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "moood" "\0"
+            VALUE "FileDescription", "stickerbank" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "moood" "\0"
+            VALUE "InternalName", "stickerbank" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "moood.exe" "\0"
-            VALUE "ProductName", "moood" "\0"
+            VALUE "ProductName", "stickerbank" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

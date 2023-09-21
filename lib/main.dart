@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
 
 Future<void> main()  async {
+/**
+import 'package:appwrite/appwrite.dart';
 
+Client client = Client();
+client
+    .setEndpoint('http://138.68.74.130/v1')
+    .setProject('650afaec36fbdb6dd48f')
+    .setSelfSigned(status: true); // For self signed certificates, only use for development
+ */
   runApp(const MyApp());
   Client client = Client()
-    .setEndpoint('https://cloud.appwrite.io/v1')
-    .setProject('64ff5688caa2a2ac98f0')
+    .setEndpoint('http://138.68.74.130/v1')
+    .setProject('650afaec36fbdb6dd48f')
     .setSelfSigned(status: true); // For self signed certificates, only use for development
 
     // .setSelfSigned(status: true); // For self signed certificates, only use for development
