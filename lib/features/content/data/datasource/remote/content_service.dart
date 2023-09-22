@@ -3,11 +3,15 @@ import 'package:stickerbank/common/appwrite_source.dart';
 import 'package:stickerbank/features/content/data/model/search.dart';
 import 'package:stickerbank/features/content/domain/entity/content.dart';
 
+final contentServiceProvider = Provider((ref) {
+  final appwriteProvider = ref.watch(appwriteSourceProvider);
+  return ContentService(appwriteProvider);
+});
 
 class ContentService {
-  final AppwriteSource _provider;
+  final AppwriteSource _appwriteSource;
 
-  ContentService(this._provider);
+  ContentService(this._appwriteSource);
 
   List<Search> contentIdSearchRequest(String tagPram) {
     throw UnimplementedError();
