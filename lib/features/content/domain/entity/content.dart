@@ -19,6 +19,6 @@ class Content {
     this.description,
     this.type,
     this.fileId,
-    {required this.tagList}
+    this.tagList
     );
 }

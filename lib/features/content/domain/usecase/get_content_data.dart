@@ -15,7 +15,8 @@ final getContentData = Provider((ref) {
 /// role:
 /// get a list of content with different tag. (img/video/gif)
 /// param: none
-/// return:list of Content
+/// return:list of Content on success. same on error but image attribut will be circularIndiacator on error
+/// 
 class GetContentData implements UseCase<DataState,void> {
   final ContentRepository _contentRepository;
 
