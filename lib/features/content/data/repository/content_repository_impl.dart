@@ -3,15 +3,12 @@ import 'package:stickerbank/features/content/domain/repository/content_repositor
 
 class ContentRepositoryImpl implements ContentRepository {
   @override
-  List<Content> getContentList(List<String> contentDataList) {
-    // TODO: implement getContentList
+  List<Content> getLandingContent() {
+    // TODO: implement getLandingContent
+    /// define a specif set of tags
+    /// query a specifiq set of tags
+    /// make sure that the result list has no doublons
+    /// return list of id
     throw UnimplementedError();
   }
-
-  @override
-  List<String> searchData() {
-    // TODO: implement searchData
-    throw UnimplementedError();
-  }
-  
 }

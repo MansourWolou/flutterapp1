@@ -13,8 +13,8 @@ client
  */
   runApp(const MyApp());
   Client client = Client()
-    .setEndpoint('http://138.68.74.130/v1')
-    .setProject('650afaec36fbdb6dd48f')
+    .setEndpoint('http://146.59.227.136/v1')
+    .setProject('650c75837250eab7661f')
     .setSelfSigned(status: true); // For self signed certificates, only use for development
 
     // .setSelfSigned(status: true); // For self signed certificates, only use for development

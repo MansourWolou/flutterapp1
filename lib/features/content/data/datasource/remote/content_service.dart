@@ -1,0 +1,25 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stickerbank/common/appwrite_source.dart';
+import 'package:stickerbank/features/content/data/model/search.dart';
+import 'package:stickerbank/features/content/domain/entity/content.dart';
+
+
+class ContentService {
+  final AppwriteSource _provider;
+
+  ContentService(this._provider);
+
+  List<Search> contentIdSearchRequest(String tagPram) {
+    throw UnimplementedError();
+  }
+
+  List<Search> randomSearch() {
+    throw UnimplementedError();
+  }
+
+  List<Content> getContentList(List<String> contentDataList) {
+    throw UnimplementedError();
+  }
+
+
+}
