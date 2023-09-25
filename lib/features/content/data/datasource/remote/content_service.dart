@@ -15,23 +15,38 @@ class ContentService {
   final AppwriteSource _appwriteSource;
 
   ContentService(this._appwriteSource);
-  
-  /// 
+
+  ///? make test to check that method if it work well
   Future<List<Search>> fetchAllSearchDocuments(String tagPram) async {
-    DocumentList searchDocuments = await  _appwriteSource.dbProvider.listDocuments(
-        databaseId: AppwriteConstants.databaseId,
-        collectionId: AppwriteConstants.searchCollection,
-        queries: [Query.isNotNull("tag")]);
-    Search tmp;
-    // searchDocuments.documents.forEach((element) {tmp = element.data})
-    throw UnimplementedError();
+    List<Search>? result;
+    DocumentList getAllSearchDocuments = await _appwriteSource.dbProvider
+        .listDocuments(
+            databaseId: AppwriteConstants.databaseId,
+            collectionId: AppwriteConstants.searchCollection,
+            queries: [Query.isNotNull("tag")]);
+
+    getAllSearchDocuments.documents.forEach((element) {
+      result!.add(element.data as Search);
+    });
+    return result!;
   }
 
   List<Search> randomSearch() {
     throw UnimplementedError();
   }
 
-  List<Content> getContentList(List<String> contentDataList) {
-    throw UnimplementedError();
+  Future<List<Content>> getContentList(List<String> contentIDList) async {
+    List<Content>? result;
+    for (var contentID in contentIDList) {
+      Document getContentDocumentByID = await _appwriteSource.dbProvider
+          .getDocument(
+              databaseId: AppwriteConstants.databaseId,
+              collectionId: AppwriteConstants.mediaCollection,
+              documentId: contentID);
+
+      result!.add(getContentDocumentByID.data as Content);
+    }
+
+    return result!;
   }
 }
