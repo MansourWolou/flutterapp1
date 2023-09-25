@@ -1,36 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:appwrite/appwrite.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stickerbank/features/content/presentation/controller/content_controller.dart';
 
 Future<void> main()  async {
-/**
-import 'package:appwrite/appwrite.dart';
 
-Client client = Client();
-client
-    .setEndpoint('http://138.68.74.130/v1')
-    .setProject('650afaec36fbdb6dd48f')
-    .setSelfSigned(status: true); // For self signed certificates, only use for development
- */
-  runApp(const MyApp());
-  Client client = Client()
-    .setEndpoint('http://146.59.227.136/v1')
-    .setProject('650c75837250eab7661f')
-    .setSelfSigned(status: true); // For self signed certificates, only use for development
+ runApp(const ProviderScope(child: MyApp()));
 
-    // .setSelfSigned(status: true); // For self signed certificates, only use for development
-
-Account account = Account(client);
-
-final user = await account.create(
-    userId: ID.unique(),
-    email: 'me2@appwrite.io',
-    password: 'password2',
-    name: 'My Name2'
-);
-print(user);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget  {
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -47,20 +25,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   MyHomePage({super.key, required this.title});
 
   final String title;
 
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    ref.read(contentControllerProvider).getContent();
     setState(() {
       _counter++;
     });

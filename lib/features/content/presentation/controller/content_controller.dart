@@ -7,6 +7,12 @@ final contentList = FutureProvider((ref) {
   return ref.watch(getContentData);
 });
 
+// creating controller provider
+final contentControllerProvider = Provider((ref) { 
+  final content = ref.watch(getContentData);
+  return ContentController(content, ref);
+});
+
 class ContentController {
   final GetContentData getContentData;
   //The ProviderRef gives us access to functions involving the state of our app.
