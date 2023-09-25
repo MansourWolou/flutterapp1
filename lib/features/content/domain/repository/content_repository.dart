@@ -6,5 +6,5 @@ abstract class ContentRepository {
   /// delete the doublons before return
   /// fetch the preview image
   /// return Content
-  List<Content> getLandingContent();
+  Future<List<Content>> getLandingContent();
 }

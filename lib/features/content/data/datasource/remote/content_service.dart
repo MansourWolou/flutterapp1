@@ -16,8 +16,8 @@ class ContentService {
 
   ContentService(this._appwriteSource);
 
-  ///? make test to check that method if it work well
-  Future<List<Search>> fetchAllSearchDocuments(String tagPram) async {
+  ///! make test to check that method if it work well
+  Future<List<Search>> fetchAllSearchDocuments() async {
     List<Search>? result;
     DocumentList getAllSearchDocuments = await _appwriteSource.dbProvider
         .listDocuments(
@@ -35,6 +35,7 @@ class ContentService {
     throw UnimplementedError();
   }
 
+  //! TOCHECK
   Future<List<Content>> getContentList(List<String> contentIDList) async {
     List<Content>? result;
     for (var contentID in contentIDList) {
