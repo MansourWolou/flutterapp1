@@ -26,7 +26,7 @@ class ContentService {
             queries: [Query.isNotNull("tag")]);
 
     getAllSearchDocuments.documents.forEach((element) {
-      result!.add(element.data as Search);
+      result!.add(element.data as Search);//mapping
     });
     return result!;
   }
@@ -45,7 +45,7 @@ class ContentService {
               collectionId: AppwriteConstants.mediaCollection,
               documentId: contentID);
 
-      result!.add(getContentDocumentByID.data as Content);
+      result!.add(getContentDocumentByID.data as Content);//mapping
     }
 
     return result!;

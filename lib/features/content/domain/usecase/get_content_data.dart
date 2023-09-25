@@ -2,6 +2,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stickerbank/features/content/data/repository/content_repository_impl.dart';
+import 'package:stickerbank/features/content/domain/entity/content.dart';
 import 'package:stickerbank/features/content/domain/repository/content_repository.dart';
 
 import '../../../../common/utils/data_state.dart';
@@ -23,8 +24,15 @@ class GetContentData implements UseCase<DataState,void> {
   GetContentData(this._contentRepository);
 
   @override
-  Future<DataState> call({void params}) {
+  Future<DataState> call({void params}) async {
     // TODO: implement call
+    final DataState result;
+    final DataState content;
+
+    content =  await _contentRepository.getLandingContent();
+    if (content.runtimeType == DataSuccess<List<Content>>) {
+      
+    }
     throw UnimplementedError();
   }
 

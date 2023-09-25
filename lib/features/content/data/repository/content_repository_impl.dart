@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stickerbank/common/utils/data_state.dart';
 import 'package:stickerbank/features/content/data/datasource/remote/content_service.dart';
 import 'package:stickerbank/features/content/data/model/search.dart';
 import 'package:stickerbank/features/content/domain/entity/content.dart';
@@ -16,26 +17,32 @@ class ContentRepositoryImpl implements ContentRepository {
 
   @override
   //! TOCHECK
-  Future<List<Content>> getLandingContent() async {
+  Future<DataState> getLandingContent() async {
     // TODO: implement getLandingContent
     /// define a specif set of tags
     /// query a specifiq set of tags
     /// make sure that the result list has no doublons
     /// return list of id
-    ///
+    ///List<Content>
     List<Search> searchData;
     List<String>? contentDocumentsList;
     List<Content> contentData;
+    DataState result;
 
-    searchData = await _contentService.fetchAllSearchDocuments();
-    for (var search in searchData) {
-      // adding each list of contentID in a list
-      contentDocumentsList!.addAll(search.contentID);
-      // merging all list. By converting list to set and doing it back , it kill all doublons
-      contentDocumentsList.toSet().toList();
+    try {
+      searchData = await _contentService.fetchAllSearchDocuments();
+      for (var search in searchData) {
+        // adding each list of contentID in a list
+        contentDocumentsList!.addAll(search.contentID);
+        // merging all list. By converting list to set and doing it back , it kill all doublons
+        contentDocumentsList.toSet().toList();
+      }
+      contentData = await _contentService.getContentList(contentDocumentsList!);
+      result = DataSuccess(contentData);
+    } catch (e) {
+      result = DataFailed(["something went wrong"]);
     }
-    contentData = await _contentService.getContentList(contentDocumentsList!);
 
-    return contentData;
+    return result;
   }
 }

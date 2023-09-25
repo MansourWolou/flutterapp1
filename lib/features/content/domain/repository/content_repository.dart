@@ -1,3 +1,4 @@
+import 'package:stickerbank/common/utils/data_state.dart';
 import 'package:stickerbank/features/content/domain/entity/content.dart';
 
 abstract class ContentRepository {
@@ -6,5 +7,5 @@ abstract class ContentRepository {
   /// delete the doublons before return
   /// fetch the preview image
   /// return Content
-  Future<List<Content>> getLandingContent();
+  Future<DataState> getLandingContent();
 }
