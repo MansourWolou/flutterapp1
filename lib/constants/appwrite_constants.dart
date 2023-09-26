@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
+
 class AppwriteConstants {
   static const String databaseId = '650c769ece793f870892';
   static const String projectId = '650c75837250eab7661f';
@@ -10,4 +14,8 @@ class AppwriteConstants {
 
   static String imageUrl(String imageId) =>
       '$endPoint/storage/buckets/$imagesBucket/files/$imageId/view?project=$projectId&mode=admin';
+  
+  static Future<Directory> getTmpDir() async {
+    return await getTemporaryDirectory();
+  }
 }
