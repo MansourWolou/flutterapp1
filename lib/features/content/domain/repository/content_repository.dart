@@ -7,5 +7,9 @@ abstract class ContentRepository {
   /// delete the doublons before return
   /// fetch the preview image
   /// return Content
-  Future<DataState> getLandingContent();
+  Future<DataState> getContentForHomePage(List<String> mediaDocumentsIDList);
+
+  // Future<DataState> saveContentTemporary();
+
+  Future<DataState> getContentFromTmpDir();
 }

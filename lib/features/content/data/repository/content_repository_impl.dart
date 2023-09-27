@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stickerbank/common/utils/data_state.dart';
 import 'package:stickerbank/constants/appwrite_constants.dart';
@@ -22,46 +24,27 @@ class ContentRepositoryImpl implements ContentRepository {
 
   @override
   //! TOCHECK
-  Future<DataState> getLandingContent() async {
-    // TODO: implement getLandingContent
-    /// define a specif set of tags
-    /// query a specifiq set of tags
-    /// make sure that the result list has no doublons
-    /// return list of id
-    ///List<Content>
-    late List<Search> searchData;
-    List<String>? contentDocumentsList;
+  Future<DataState> getContentForHomePage(
+      List<String> mediaDocumentsIDList) async {
     List<Media> mediaData;
+    List<Content>? contentData;
     DataState result;
-
-
-    try {
-      searchData =
-          await _contentService.fetchAllDocumentsFromSearchCollection();
-    } on AppwriteException catch (e) {
-      result = DataFailed(
-          ["error on fetchAllDocumentsFromSearchCollection", 'error: $e']);
-    } catch (e) {
-      result = DataFailed(["something went wrong", 'error: $e']);
-    }
-
-    for (var search in searchData) {
-      // adding each list of contentID in a list
-      contentDocumentsList!.addAll(search.contentID);
-      // merging all list. By converting list to set and doing it back , it kill all doublons
-      contentDocumentsList.toSet().toList();
-    }
 
     try {
       mediaData = await _contentService
-          .fetchMediaListFromMediaCollection(contentDocumentsList!);
+          .fetchMediaListFromMediaCollection(mediaDocumentsIDList!);
       for (var media in mediaData) {
-        final val = await _contentService.fetchFilePreviewFromStorage(media.fileID);
-        // add file to tmp dir
-        File file = File('${AppwriteConstants.getTmpDir()}/filename.ext');
-        file.writeAsBytesSync(val);
+        final val =
+            await _contentService.fetchFilePreviewFromStorage(media.fileID);
+
+        //? dont know what to do withe the string yet
+        String fileNameInTmpDir = saveContentTemporary(val);
+
+        // TODO: NEED MORE ATTRIBUT ON MEDIA TYPE
+        contentData!.add(Content(Image.memory(val), media.description,
+            MediaType.img, media.fileID, media.tagList));
       }
-      result = DataSuccess(mediaData);
+      result = DataSuccess(contentData);
     } on AppwriteException catch (e) {
       result = DataFailed(
           ["error on fetchMediaListFromMediaCollection", 'error: $e']);
@@ -71,4 +54,27 @@ class ContentRepositoryImpl implements ContentRepository {
 
     return result;
   }
+
+  @override
+  Future<DataState> getContentFromTmpDir() {
+    // TODO: implement getContentFromTmpDir
+    throw UnimplementedError();
+  }
+
+  String saveContentTemporary(Uint8List fileData) {
+    String fileName = DateTime.now().toString();
+    // add file to tmp dir
+    //! what do i do about the file extension
+    File file = File('${AppwriteConstants.getTmpDir()}/$fileName');
+    file.writeAsBytesSync(fileData);
+
+    return fileName;
+  }
 }
+
+/// data search:
+/// getting the result request , try to catch error , return  list of media data with no doubllons
+/// 
+/// fetch file corresponding to each media data
+/// 
+/// save preview file in tmpDir

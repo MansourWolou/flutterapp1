@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+//! useless
 enum MediaType {
   img,
   vid,
@@ -12,7 +13,7 @@ class Content extends Equatable {
   final Widget content; // img | circularIndicator
   final String description;
   final MediaType type;
-  final int fileId;
+  final String fileId;
   final List<String> tagList;
 
   const Content(
