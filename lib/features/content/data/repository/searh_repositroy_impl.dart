@@ -1,8 +1,14 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stickerbank/common/utils/data_state.dart';
 import 'package:stickerbank/features/content/data/datasource/remote/content_service.dart';
 import 'package:stickerbank/features/content/data/model/search.dart';
 import 'package:stickerbank/features/content/domain/repository/search_repository.dart';
+
+final searchRepositoryImpl = Provider((ref) {
+  final contentService = ref.watch(contentServiceProvider);
+  return SearchRepositoryImpl(contentService);
+});
 
 class SearchRepositoryImpl implements SearchRepository {
   final ContentService _contentService;
