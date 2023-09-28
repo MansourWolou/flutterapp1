@@ -27,7 +27,7 @@ class ContentRepositoryImpl implements ContentRepository {
   Future<DataState> getContentForHomePage(
       List<String> mediaDocumentsIDList) async {
     List<Media> mediaData;
-    List<Content>? contentData;
+    List<Content> contentData = [];
     DataState result;
 
     try {
@@ -38,10 +38,10 @@ class ContentRepositoryImpl implements ContentRepository {
             await _contentService.fetchFilePreviewFromStorage(media.fileID);
 
         //? dont know what to do withe the string yet
-        String fileNameInTmpDir = saveContentTemporary(val);
+        // String fileNameInTmpDir = saveContentTemporary(val);
 
         // TODO: NEED MORE ATTRIBUT ON MEDIA TYPE
-        contentData!.add(Content(Image.memory(val), media.description,
+        contentData.add(Content(Image.memory(val), media.description,
             MediaType.img, media.fileID, media.tagList));
       }
       result = DataSuccess(contentData);

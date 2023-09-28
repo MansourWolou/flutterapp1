@@ -7,8 +7,9 @@ class Media extends Equatable {
 
   const Media(this.description, this.tagList, this.fileID);
 
-  factory Media.fromMap(Map<String,dynamic> map) {
-    return Media(map["description"], map['tagList'], map["fileID"]);
+  factory Media.fromMap(Map<String, dynamic> map) {
+    return Media(map["description"].toString(),
+        List<String>.from(map['tagList']), map["fileID"].toString());
   }
 
   @override

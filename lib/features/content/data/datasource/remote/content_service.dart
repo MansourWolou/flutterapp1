@@ -22,8 +22,14 @@ class ContentService {
 
   ///! make test to check that method if it work well
   Future<List<Search>> fetchAllDocumentsFromSearchCollection() async {
-    List<Search>? result;
+    List<Search> result = [];
     late DocumentList getAllSearchDocuments;
+
+    final test = await _appwriteSource.dbProvider.getDocument(
+              databaseId: AppwriteConstants.databaseId,
+              collectionId: AppwriteConstants.mediaCollection,
+              documentId: "650c7803cf4f938924f0");
+              print(test);
 
     getAllSearchDocuments = await _appwriteSource.dbProvider.listDocuments(
         databaseId: AppwriteConstants.databaseId,
@@ -32,10 +38,10 @@ class ContentService {
 
     getAllSearchDocuments.documents.forEach((element) {
       //! check if data mapping is donne well
-      result!.add(Search.fromMap(element.data)); //mapping
+      result.add(Search.fromMap(element.data)); //mapping
     });
 
-    return result!;
+    return result;
   }
 
   List<Search> randomSearch() {
@@ -45,7 +51,7 @@ class ContentService {
   //! TOCHECK
   Future<List<Media>> fetchMediaListFromMediaCollection(
       List<String> contentIDList) async {
-    List<Media>? result;
+    List<Media> result = [];
 
     for (var contentID in contentIDList) {
       Document getContentDocumentByID = await _appwriteSource.dbProvider
@@ -55,17 +61,15 @@ class ContentService {
               documentId: contentID);
 
       //! check if data mapping is donne well
-      result!.add(Media.fromMap(getContentDocumentByID.data)); //mapping
+      result.add(Media.fromMap(getContentDocumentByID.data)); //mapping
     }
 
-    return result!;
+    return result;
   }
 
   Future<Uint8List> fetchFilePreviewFromStorage(String fileID) async {
     late final Uint8List contentFile;
-    final file;
     try {
-      tempDir = await getTemporaryDirectory();
       contentFile = await _appwriteSource.storageProvider.getFilePreview(
           bucketId: AppwriteConstants.imagesBucket, fileId: fileID);
     } catch (e) {

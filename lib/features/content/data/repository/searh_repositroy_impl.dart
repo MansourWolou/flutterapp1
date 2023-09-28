@@ -35,14 +35,14 @@ class SearchRepositoryImpl implements SearchRepository {
   }
 
   static List<String> makeUniqMediaIDList(List<Search> searchData) {
-    List<String>? mediaDocumentsIDList;
+    List<String> mediaDocumentsIDList = [];
     for (var search in searchData) {
       // adding each list of contentID in a list
-      mediaDocumentsIDList!.addAll(search.contentID);
+      mediaDocumentsIDList.addAll(search.contentID);
       // merging all list. By converting list to set and doing it back , it kill all doublons
       mediaDocumentsIDList.toSet().toList();
     }
-    return mediaDocumentsIDList!;
+    return mediaDocumentsIDList;
   }
 
   @override

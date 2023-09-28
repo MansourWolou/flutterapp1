@@ -11,7 +11,7 @@ import '../../../../common/utils/usecase.dart';
 final getContentData = Provider((ref) {
   final contentRepository = ref.watch(contentRepositoryImpl);
   final searchRepository = ref.watch(searchRepositoryImpl);
-  return GetContentData(contentRepository,searchRepository);
+  return GetContentData(contentRepository, searchRepository);
 });
 
 /// role:
@@ -27,19 +27,19 @@ class GetContentData implements UseCase<DataState, void> {
 
   @override
   Future<DataState> call({void params}) async {
-    final DataState result;
+    DataState result = DataFailed(["data not initialized yet"]);
     final DataState content;
     final DataState search;
 
     search = await _searchRepository.searchDataForHomePage();
+      print("__________going through");
 
     if (search.runtimeType == DataSuccess<List<String>>) {
       content = await _contentRepository.getContentForHomePage(search.data);
       if (content.runtimeType == DataSuccess<List<Content>>) {
-
+        result = content;
       }
     }
-
-    throw UnimplementedError();
+    return result;
   }
 }

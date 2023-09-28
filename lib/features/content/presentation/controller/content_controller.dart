@@ -21,7 +21,9 @@ class ContentController {
   ContentController(this.getContentData, this.ref);
   
   getContent(){
-    getContentData();
+    var dt = getContentData();
+    print("usecase result");
+    print(dt);
     ref.refresh(contentList);
   }
 }
