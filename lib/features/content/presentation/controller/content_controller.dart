@@ -25,6 +25,11 @@ class ContentController extends _$ContentController {
   Future<void> getContent() async {
     final contentsMethod = ref.read(getLandingDataProvider);
     final contentData = await contentsMethod();
+    ContentManager state = ContentManager(
+        home: Stack<List<Content>>(), search: Stack<List<Content>>());
+    ContentManager newstate = ContentManager(
+        home: Stack<List<Content>>(), search: Stack<List<Content>>());
+    state = newstate.copyWith(homeStack: Stack<List<Content>>());
     state = const AsyncLoading();
     // state.value.home.add(await AsyncValue.guard(() => contentData));
     AsyncValue.data(state.whenData((value) => value.home.add(contentData)));

@@ -1,15 +1,19 @@
-import 'dart:collection';
-
 import 'package:equatable/equatable.dart';
+import 'package:stickerbank/common/utils/Starck.dart';
 import 'package:stickerbank/features/content/domain/entity/content.dart';
 
 class ContentManager extends Equatable {
-  Queue<List<Content>> home;
-  Queue<List<Content>> search;
+  final Stack<List<Content>> home;
+  final Stack<List<Content>> search;
 
-  ContentManager({required this.home, required this.search});
+  const ContentManager({required this.home, required this.search});
+
+  ContentManager copyWith(
+      {Stack<List<Content>>? homeStack, Stack<List<Content>>? searchStack}) {
+    return ContentManager(
+        home: homeStack ?? home, search: searchStack ?? search);
+  }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [home, search];
 }
