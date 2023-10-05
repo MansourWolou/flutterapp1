@@ -12,8 +12,8 @@ import 'package:stickerbank/features/content/data/model/search.dart';
 import 'package:stickerbank/features/content/domain/entity/content.dart';
 import 'package:stickerbank/features/content/domain/repository/content_repository.dart';
 
-final contentRepositoryImpl = Provider((ref) {
-  final contentService = ref.watch(contentServiceProvider);
+final contentRepositoryImpl = Provider<ContentRepositoryImpl>((ref) {
+  final ContentService contentService = ref.watch(contentServiceProvider);
   return ContentRepositoryImpl(contentService);
 });
 

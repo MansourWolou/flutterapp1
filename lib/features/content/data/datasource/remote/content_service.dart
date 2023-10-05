@@ -10,8 +10,8 @@ import 'package:stickerbank/features/content/data/model/media.dart';
 import 'package:stickerbank/features/content/data/model/search.dart';
 import 'package:path_provider/path_provider.dart';
 
-final contentServiceProvider = Provider((ref) {
-  final appwriteProvider = ref.watch(appwriteSourceProvider);
+final contentServiceProvider = Provider<ContentService>((ref) {
+  final AppwriteSource appwriteProvider = ref.watch(appwriteSourceProvider);
   return ContentService(appwriteProvider);
 });
 
@@ -24,12 +24,6 @@ class ContentService {
   Future<List<Search>> fetchAllDocumentsFromSearchCollection() async {
     List<Search> result = [];
     late DocumentList getAllSearchDocuments;
-
-    final test = await _appwriteSource.dbProvider.getDocument(
-              databaseId: AppwriteConstants.databaseId,
-              collectionId: AppwriteConstants.mediaCollection,
-              documentId: "650c7803cf4f938924f0");
-              print(test);
 
     getAllSearchDocuments = await _appwriteSource.dbProvider.listDocuments(
         databaseId: AppwriteConstants.databaseId,

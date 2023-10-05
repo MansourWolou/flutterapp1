@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stickerbank/features/content/presentation/controller/content_controller.dart';
 
-Future<void> main()  async {
-
- runApp(const ProviderScope(child: MyApp()));
-
+Future<void> main() async {
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget  {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -20,16 +18,15 @@ class MyApp extends StatelessWidget  {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends ConsumerStatefulWidget {
-  MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title});
 
   final String title;
-
 
   @override
   ConsumerState<MyHomePage> createState() => _MyHomePageState();
@@ -39,7 +36,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    ref.read(contentControllerProvider).getContent();
+    ref.read(contentControllerProvider as ProviderListenable).getContent();
     setState(() {
       _counter++;
     });

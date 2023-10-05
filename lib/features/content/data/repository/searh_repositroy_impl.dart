@@ -5,8 +5,8 @@ import 'package:stickerbank/features/content/data/datasource/remote/content_serv
 import 'package:stickerbank/features/content/data/model/search.dart';
 import 'package:stickerbank/features/content/domain/repository/search_repository.dart';
 
-final searchRepositoryImpl = Provider((ref) {
-  final contentService = ref.watch(contentServiceProvider);
+final searchRepositoryImpl = Provider<SearchRepositoryImpl>((ref) {
+  final ContentService contentService = ref.watch(contentServiceProvider);
   return SearchRepositoryImpl(contentService);
 });
 
