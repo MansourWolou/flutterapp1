@@ -1,7 +1,11 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final appwriteSourceProvider = Provider<AppwriteSource>((ref) => AppwriteSource());
+part 'appwrite_source.g.dart';
+
+// final appwriteSourceProvider = Provider<AppwriteSource>((ref) => AppwriteSource());
+@riverpod
+AppwriteSource appwriteClient(AppwriteClientRef ref) => AppwriteSource();
 
 class AppwriteSource {
   Client client = Client()

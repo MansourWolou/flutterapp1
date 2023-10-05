@@ -3,17 +3,19 @@ import 'dart:typed_data';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stickerbank/common/appwrite_source.dart';
 import 'package:stickerbank/constants/appwrite_constants.dart';
 import 'package:stickerbank/features/content/data/model/media.dart';
 import 'package:stickerbank/features/content/data/model/search.dart';
-import 'package:path_provider/path_provider.dart';
 
-final contentServiceProvider = Provider<ContentService>((ref) {
-  final AppwriteSource appwriteProvider = ref.watch(appwriteSourceProvider);
+part 'content_service.g.dart';
+
+@riverpod
+ContentService contentService(ContentServiceRef ref) {
+  final AppwriteSource appwriteProvider = ref.watch(appwriteClientProvider);
   return ContentService(appwriteProvider);
-});
+}
 
 class ContentService {
   final AppwriteSource _appwriteSource;
@@ -30,10 +32,10 @@ class ContentService {
         collectionId: AppwriteConstants.searchCollection,
         queries: [Query.isNotNull("tag")]);
 
-    getAllSearchDocuments.documents.forEach((element) {
+    for (var element in getAllSearchDocuments.documents) {
       //! check if data mapping is donne well
       result.add(Search.fromMap(element.data)); //mapping
-    });
+    }
 
     return result;
   }

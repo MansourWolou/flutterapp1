@@ -3,19 +3,21 @@ import 'dart:typed_data';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stickerbank/common/utils/data_state.dart';
 import 'package:stickerbank/constants/appwrite_constants.dart';
 import 'package:stickerbank/features/content/data/datasource/remote/content_service.dart';
 import 'package:stickerbank/features/content/data/model/media.dart';
-import 'package:stickerbank/features/content/data/model/search.dart';
 import 'package:stickerbank/features/content/domain/entity/content.dart';
 import 'package:stickerbank/features/content/domain/repository/content_repository.dart';
 
-final contentRepositoryImpl = Provider<ContentRepositoryImpl>((ref) {
+part 'content_repository_impl.g.dart';
+
+@riverpod
+ContentRepositoryImpl contentRepositoryImpl(ContentRepositoryImplRef ref) {
   final ContentService contentService = ref.watch(contentServiceProvider);
   return ContentRepositoryImpl(contentService);
-});
+}
 
 class ContentRepositoryImpl implements ContentRepository {
   final ContentService _contentService;
@@ -32,7 +34,7 @@ class ContentRepositoryImpl implements ContentRepository {
 
     try {
       mediaData = await _contentService
-          .fetchMediaListFromMediaCollection(mediaDocumentsIDList!);
+          .fetchMediaListFromMediaCollection(mediaDocumentsIDList);
       for (var media in mediaData) {
         final val =
             await _contentService.fetchFilePreviewFromStorage(media.fileID);

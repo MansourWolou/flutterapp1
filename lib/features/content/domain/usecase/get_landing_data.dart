@@ -1,9 +1,6 @@
-import 'dart:collection';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stickerbank/features/content/data/repository/content_repository_impl.dart';
-import 'package:stickerbank/features/content/data/repository/searh_repositroy_impl.dart';
+import 'package:stickerbank/features/content/data/repository/search_repositroy_impl.dart';
 import 'package:stickerbank/features/content/domain/entity/content.dart';
 import 'package:stickerbank/features/content/domain/repository/content_repository.dart';
 import 'package:stickerbank/features/content/domain/repository/search_repository.dart';
@@ -11,11 +8,16 @@ import 'package:stickerbank/features/content/domain/repository/search_repository
 import '../../../../common/utils/data_state.dart';
 import '../../../../common/utils/usecase.dart';
 
-final getLandingData = Provider<GetLandingData>((ref) {
-  final ContentRepositoryImpl contentRepository = ref.watch(contentRepositoryImpl);
-  final SearchRepositoryImpl searchRepository = ref.watch(searchRepositoryImpl);
+part 'get_landing_data.g.dart';
+
+@riverpod
+GetLandingData getLandingData(GetLandingDataRef ref) {
+  final ContentRepositoryImpl contentRepository =
+      ref.watch(contentRepositoryImplProvider);
+  final SearchRepositoryImpl searchRepository =
+      ref.watch(searchRepositoryImplProvider);
   return GetLandingData(contentRepository, searchRepository);
-});
+}
 
 /// role:
 /// get a list of content with different tag. (img/video/gif)
@@ -44,8 +46,8 @@ class GetLandingData implements UseCase<List<Content>, void> {
         // no content foound
         result = [];
       }
-    } 
-   
+    }
+
     return result;
   }
 }

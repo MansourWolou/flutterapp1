@@ -1,8 +1,6 @@
 import 'dart:collection';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:stickerbank/common/utils/data_state.dart';
 import 'package:stickerbank/features/content/domain/entity/conten_manager.dart';
 import 'package:stickerbank/features/content/domain/entity/content.dart';
 import 'package:stickerbank/features/content/domain/usecase/get_landing_data.dart';
@@ -25,7 +23,7 @@ class ContentController extends _$ContentController {
   }
 
   Future<void> getContent() async {
-    final contentsMethod = ref.read(getLandingData);
+    final contentsMethod = ref.read(getLandingDataProvider);
     final contentData = await contentsMethod();
     state = const AsyncLoading();
     // state.value.home.add(await AsyncValue.guard(() => contentData));
